@@ -49,7 +49,7 @@ func makeMainMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 		}),
 		fyne.NewMenuItem("Go Source File", func() {
 			slog.Info("selected menu item File>Export>Go Source File")
-			//TODO: export go
+			exportGo(w)
 		}),
 	)
 
