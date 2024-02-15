@@ -33,6 +33,10 @@ func exportJSON(w fyne.Window) {
 				return
 			}
 
+			if uc == nil {
+				return
+			}
+
 			path := uc.URI().Path()
 
 			slog.Info("exporting JSON", "path", path, "indent", indent)
@@ -71,6 +75,10 @@ func exportYAML(w fyne.Window) {
 		if err != nil {
 			slog.Info(err.Error())
 			dialog.NewError(err, w).Show()
+			return
+		}
+
+		if uc == nil {
 			return
 		}
 
@@ -145,6 +153,10 @@ func exportGo(w fyne.Window) {
 			if err != nil {
 				slog.Info(err.Error())
 				dialog.NewError(err, w).Show()
+				return
+			}
+
+			if uc == nil {
 				return
 			}
 
