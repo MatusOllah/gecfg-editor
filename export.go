@@ -13,6 +13,7 @@ import (
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/storage"
 	"fyne.io/fyne/v2/widget"
+	"gopkg.in/yaml.v3"
 )
 
 func exportJSON(w fyne.Window) {
@@ -63,6 +64,35 @@ func exportJSON(w fyne.Window) {
 		dlg.Show()
 
 	}, w).Show()
+}
+
+func exportYAML(w fyne.Window) {
+	dlg := dialog.NewFileSave(func(uc fyne.URIWriteCloser, err error) {
+		if err != nil {
+			slog.Info(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+
+		path := uc.URI().Path()
+
+		slog.Info("exporting YAML", "path", path)
+
+		b, err := yaml.Marshal(&theMap)
+		if err != nil {
+			slog.Info(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+
+		if err := os.WriteFile(path, b, 0666); err != nil {
+			slog.Info(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+	}, w)
+	dlg.SetFilter(storage.NewExtensionFileFilter([]string{".yaml", ".yml"}))
+	dlg.Show()
 }
 
 func exportGo(w fyne.Window) {
