@@ -39,6 +39,10 @@ func makeMainMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 			slog.Info("selected menu item File>Import>JSON")
 			importJSON(w)
 		}),
+		fyne.NewMenuItem("YAML", func() {
+			slog.Info("selected menu item File>Import>YAML")
+			importYAML(w)
+		}),
 	)
 
 	file_export := fyne.NewMenuItem("Export", func() {})
