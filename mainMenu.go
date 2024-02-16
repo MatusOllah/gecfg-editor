@@ -37,7 +37,7 @@ func makeMainMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 	file_import.ChildMenu = fyne.NewMenu("",
 		fyne.NewMenuItem("JSON", func() {
 			slog.Info("selected menu item File>Import>JSON")
-			//TODO: import JSON
+			importJSON(w)
 		}),
 	)
 
