@@ -4,6 +4,7 @@ go 1.22.0
 
 require (
 	fyne.io/fyne/v2 v2.4.4
+	github.com/BurntSushi/toml v1.3.2
 	gopkg.in/yaml.v3 v3.0.1
 )
 
