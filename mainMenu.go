@@ -43,6 +43,10 @@ func makeMainMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 			slog.Info("selected menu item File>Import>YAML")
 			importYAML(w)
 		}),
+		fyne.NewMenuItem("TOML", func() {
+			slog.Info("selected menu item File>Import>YAML")
+			importTOML(w)
+		}),
 	)
 
 	file_export := fyne.NewMenuItem("Export", func() {})
@@ -54,6 +58,10 @@ func makeMainMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 		fyne.NewMenuItem("YAML", func() {
 			slog.Info("selected menu item File>Export>YAML")
 			exportYAML(w)
+		}),
+		fyne.NewMenuItem("TOML", func() {
+			slog.Info("selected menu item File>Export>TOML")
+			exportTOML(w)
 		}),
 		fyne.NewMenuItem("Go Source File", func() {
 			slog.Info("selected menu item File>Export>Go Source File")

@@ -13,6 +13,7 @@ import (
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/storage"
 	"fyne.io/fyne/v2/widget"
+	"github.com/BurntSushi/toml"
 	"gopkg.in/yaml.v3"
 )
 
@@ -101,6 +102,41 @@ func exportYAML(w fyne.Window) {
 		}
 	}, w)
 	dlg.SetFilter(storage.NewExtensionFileFilter([]string{".yaml", ".yml"}))
+	dlg.Resize(windowSizeToDialog(w.Canvas().Size()))
+	dlg.Show()
+}
+
+func exportTOML(w fyne.Window) {
+	dlg := dialog.NewFileSave(func(uc fyne.URIWriteCloser, err error) {
+		if err != nil {
+			slog.Info(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+
+		if uc == nil {
+			return
+		}
+
+		path := uc.URI().Path()
+
+		slog.Info("exporting TOML", "path", path)
+
+		var bf bytes.Buffer
+		err = toml.NewEncoder(&bf).Encode(&theMap)
+		if err != nil {
+			slog.Info(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+
+		if err := os.WriteFile(path, bf.Bytes(), 0666); err != nil {
+			slog.Info(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+	}, w)
+	dlg.SetFilter(storage.NewExtensionFileFilter([]string{".toml"}))
 	dlg.Resize(windowSizeToDialog(w.Canvas().Size()))
 	dlg.Show()
 }

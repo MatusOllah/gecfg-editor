@@ -9,6 +9,7 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/storage"
+	"github.com/BurntSushi/toml"
 	"gopkg.in/yaml.v3"
 )
 
@@ -92,6 +93,45 @@ func importYAML(w fyne.Window) {
 
 	}, w)
 	dlg.SetFilter(storage.NewExtensionFileFilter([]string{".yaml", ".yml"}))
+	dlg.Resize(windowSizeToDialog(w.Canvas().Size()))
+	dlg.Show()
+}
+
+func importTOML(w fyne.Window) {
+	dlg := dialog.NewFileOpen(func(uc fyne.URIReadCloser, err error) {
+		if err != nil {
+			slog.Info(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+
+		if uc == nil {
+			return
+		}
+
+		path := uc.URI().Path()
+
+		slog.Info("importing TOML", "path", path)
+
+		content, err := os.ReadFile(path)
+		if err != nil {
+			slog.Info(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+
+		var m map[string]interface{}
+		err = toml.Unmarshal(content, &m)
+		if err != nil {
+			slog.Info(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+
+		importMap(m)
+
+	}, w)
+	dlg.SetFilter(storage.NewExtensionFileFilter([]string{".toml"}))
 	dlg.Resize(windowSizeToDialog(w.Canvas().Size()))
 	dlg.Show()
 }
