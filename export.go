@@ -65,6 +65,7 @@ func exportJSON(w fyne.Window) {
 			}
 		}, w)
 		dlg.SetFilter(storage.NewExtensionFileFilter([]string{".json"}))
+		dlg.Resize(windowSizeToDialog(w.Canvas().Size()))
 		dlg.Show()
 
 	}, w).Show()
@@ -100,6 +101,7 @@ func exportYAML(w fyne.Window) {
 		}
 	}, w)
 	dlg.SetFilter(storage.NewExtensionFileFilter([]string{".yaml", ".yml"}))
+	dlg.Resize(windowSizeToDialog(w.Canvas().Size()))
 	dlg.Show()
 }
 
@@ -173,6 +175,7 @@ func exportGo(w fyne.Window) {
 			}
 		}, w)
 		dlg.SetFilter(storage.NewExtensionFileFilter([]string{".go"}))
+		dlg.Resize(windowSizeToDialog(w.Canvas().Size()))
 		dlg.Show()
 	}, w).Show()
 }

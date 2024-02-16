@@ -184,3 +184,8 @@ func deleteSelected() {
 	l.UnselectAll()
 	reloadListItems()
 }
+
+// windowSizeToDialog scales the window size to a suitable dialog size.
+func windowSizeToDialog(s fyne.Size) fyne.Size {
+	return fyne.NewSize(s.Width*0.8, s.Height*0.8)
+}
