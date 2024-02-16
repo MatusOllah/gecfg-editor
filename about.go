@@ -10,7 +10,7 @@ import (
 
 func showAboutDialog(a fyne.App, w fyne.Window) {
 	dialog.NewInformation("About gecfg-editor", fmt.Sprintf(
-		"%s version %s\nGo version %s\nBuilt with ❤️ by Matúš Ollah <github.com/MatusOllah>",
+		"%s version %s\nGo version %s\n\nBuilt with ❤️ by Matúš Ollah <github.com/MatusOllah>",
 		a.Metadata().Name,
 		a.Metadata().Version,
 		runtime.Version(),
