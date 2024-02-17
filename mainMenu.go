@@ -69,6 +69,12 @@ func makeMainMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 		}),
 	)
 
+	file_print := fyne.NewMenuItem("Print", func() {
+		slog.Info("selected menu item File>Print")
+		print(a, w)
+	})
+	file_print.Icon = theme.DocumentPrintIcon()
+
 	file := fyne.NewMenu("File",
 		file_new,
 		fyne.NewMenuItemSeparator(),
@@ -80,6 +86,8 @@ func makeMainMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 		file_import,
 		fyne.NewMenuItemSeparator(),
 		file_export,
+		fyne.NewMenuItemSeparator(),
+		file_print,
 	)
 
 	// Edit
