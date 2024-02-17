@@ -13,7 +13,7 @@ func makeToolbar(a fyne.App, w fyne.Window) fyne.CanvasObject {
 	return container.NewVBox(widget.NewToolbar(
 		widget.NewToolbarAction(theme.FileIcon(), func() {
 			slog.Info("selected toolbar item New")
-			//TODO: new
+			newFile(a, w)
 		}),
 		widget.NewToolbarAction(theme.FolderOpenIcon(), func() {
 			slog.Info("selected toolbar item Open")

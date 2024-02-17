@@ -189,3 +189,14 @@ func deleteSelected() {
 func windowSizeToDialog(s fyne.Size) fyne.Size {
 	return fyne.NewSize(s.Width*0.8, s.Height*0.8)
 }
+
+func updateWindowTitle(a fyne.App, w fyne.Window) {
+	w.SetTitle(openFileName + " - " + a.Metadata().Name)
+}
+
+func newFile(a fyne.App, w fyne.Window) {
+	theMap = map[string]interface{}{} // wipe map
+	reloadListItems()
+	openFileName = "Untitled"
+	updateWindowTitle(a, w)
+}

@@ -11,7 +11,7 @@ func makeMainMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 	// File
 	file_new := fyne.NewMenuItem("New", func() {
 		slog.Info("selected menu item File>New")
-		//TODO: new
+		newFile(a, w)
 	})
 	file_new.Icon = theme.FileIcon()
 
