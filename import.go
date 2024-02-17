@@ -22,7 +22,7 @@ func importMap(m map[string]interface{}) {
 func importJSON(w fyne.Window) {
 	dlg := dialog.NewFileOpen(func(uc fyne.URIReadCloser, err error) {
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -37,7 +37,7 @@ func importJSON(w fyne.Window) {
 
 		content, err := os.ReadFile(path)
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -45,7 +45,7 @@ func importJSON(w fyne.Window) {
 		var m map[string]interface{}
 		err = json.Unmarshal(content, &m)
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -61,7 +61,7 @@ func importJSON(w fyne.Window) {
 func importYAML(w fyne.Window) {
 	dlg := dialog.NewFileOpen(func(uc fyne.URIReadCloser, err error) {
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -76,7 +76,7 @@ func importYAML(w fyne.Window) {
 
 		content, err := os.ReadFile(path)
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -84,7 +84,7 @@ func importYAML(w fyne.Window) {
 		var m map[string]interface{}
 		err = yaml.Unmarshal(content, &m)
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -100,7 +100,7 @@ func importYAML(w fyne.Window) {
 func importTOML(w fyne.Window) {
 	dlg := dialog.NewFileOpen(func(uc fyne.URIReadCloser, err error) {
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -115,7 +115,7 @@ func importTOML(w fyne.Window) {
 
 		content, err := os.ReadFile(path)
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -123,7 +123,7 @@ func importTOML(w fyne.Window) {
 		var m map[string]interface{}
 		err = toml.Unmarshal(content, &m)
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}

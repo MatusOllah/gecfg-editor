@@ -29,7 +29,7 @@ func exportJSON(w fyne.Window) {
 
 		dlg := dialog.NewFileSave(func(uc fyne.URIWriteCloser, err error) {
 			if err != nil {
-				slog.Info(err.Error())
+				slog.Error(err.Error())
 				dialog.NewError(err, w).Show()
 				return
 			}
@@ -46,21 +46,21 @@ func exportJSON(w fyne.Window) {
 			if indent {
 				b, err = json.MarshalIndent(theMap, "", "\t")
 				if err != nil {
-					slog.Info(err.Error())
+					slog.Error(err.Error())
 					dialog.NewError(err, w).Show()
 					return
 				}
 			} else {
 				b, err = json.Marshal(theMap)
 				if err != nil {
-					slog.Info(err.Error())
+					slog.Error(err.Error())
 					dialog.NewError(err, w).Show()
 					return
 				}
 			}
 
 			if err := os.WriteFile(path, b, 0666); err != nil {
-				slog.Info(err.Error())
+				slog.Error(err.Error())
 				dialog.NewError(err, w).Show()
 				return
 			}
@@ -75,7 +75,7 @@ func exportJSON(w fyne.Window) {
 func exportYAML(w fyne.Window) {
 	dlg := dialog.NewFileSave(func(uc fyne.URIWriteCloser, err error) {
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -90,13 +90,13 @@ func exportYAML(w fyne.Window) {
 
 		b, err := yaml.Marshal(&theMap)
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
 
 		if err := os.WriteFile(path, b, 0666); err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -109,7 +109,7 @@ func exportYAML(w fyne.Window) {
 func exportTOML(w fyne.Window) {
 	dlg := dialog.NewFileSave(func(uc fyne.URIWriteCloser, err error) {
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -125,13 +125,13 @@ func exportTOML(w fyne.Window) {
 		var bf bytes.Buffer
 		err = toml.NewEncoder(&bf).Encode(&theMap)
 		if err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
 
 		if err := os.WriteFile(path, bf.Bytes(), 0666); err != nil {
-			slog.Info(err.Error())
+			slog.Error(err.Error())
 			dialog.NewError(err, w).Show()
 			return
 		}
@@ -189,7 +189,7 @@ func exportGo(w fyne.Window) {
 
 		dlg := dialog.NewFileSave(func(uc fyne.URIWriteCloser, err error) {
 			if err != nil {
-				slog.Info(err.Error())
+				slog.Error(err.Error())
 				dialog.NewError(err, w).Show()
 				return
 			}
@@ -205,7 +205,7 @@ func exportGo(w fyne.Window) {
 			b := mapToGoString(theMap, varNameEntry.Text, pkgNameEntry.Text, indent, convert, false)
 
 			if err := os.WriteFile(path, b, 0666); err != nil {
-				slog.Info(err.Error())
+				slog.Error(err.Error())
 				dialog.NewError(err, w).Show()
 				return
 			}
