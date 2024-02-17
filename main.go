@@ -10,9 +10,11 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"github.com/MatusOllah/slogcolor"
 )
 
 func main() {
+	slog.SetDefault(slog.New(slogcolor.NewHandler(os.Stderr, slogcolor.DefaultOptions)))
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile)
 
 	slog.Info("Initializing")
@@ -38,7 +40,7 @@ func main() {
 
 	reloadListItems()
 
-	w := a.NewWindow(a.Metadata().Name)
+	w := a.NewWindow(openFileName + " - " + a.Metadata().Name)
 	w.SetMaster()
 	w.Resize(fyne.NewSize(1280, 720))
 	w.SetMainMenu(makeMainMenu(a, w))

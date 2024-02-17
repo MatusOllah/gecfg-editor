@@ -10,4 +10,5 @@ var (
 	items          binding.UntypedList    = binding.NewUntypedList()
 	curItemBinding binding.Untyped        = binding.NewUntyped()
 	l              *widget.List
+	openFileName   string = "Untitled"
 )
