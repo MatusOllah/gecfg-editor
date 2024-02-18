@@ -17,19 +17,19 @@ func makeMainMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 
 	file_open := fyne.NewMenuItem("Open", func() {
 		slog.Info("selected menu item File>Open")
-		//TODO: open
+		openFile(a, w)
 	})
 	file_open.Icon = theme.FolderOpenIcon()
 
 	file_save := fyne.NewMenuItem("Save", func() {
 		slog.Info("selected menu item File>Save")
-		//TODO: save
+		saveFile(a, w)
 	})
 	file_save.Icon = theme.DocumentSaveIcon()
 
 	file_saveAs := fyne.NewMenuItem("Save As", func() {
 		slog.Info("selected menu item File>Save As")
-		//TODO: save as
+		saveFileAs(a, w)
 	})
 	file_saveAs.Icon = theme.DocumentSaveIcon()
 

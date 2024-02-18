@@ -17,11 +17,11 @@ func makeToolbar(a fyne.App, w fyne.Window) fyne.CanvasObject {
 		}),
 		widget.NewToolbarAction(theme.FolderOpenIcon(), func() {
 			slog.Info("selected toolbar item Open")
-			//TODO: open file
+			openFile(a, w)
 		}),
 		widget.NewToolbarAction(theme.DocumentSaveIcon(), func() {
 			slog.Info("selected toolbar item Save")
-			//TODO: save file
+			saveFile(a, w)
 		}),
 		widget.NewToolbarSeparator(),
 		widget.NewToolbarAction(theme.ContentAddIcon(), func() {

@@ -11,4 +11,5 @@ var (
 	curItemBinding binding.Untyped        = binding.NewUntyped()
 	l              *widget.List
 	openFileName   string = "Untitled"
+	openFilePath   string
 )

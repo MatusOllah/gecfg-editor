@@ -4,13 +4,17 @@ import (
 	"cmp"
 	"errors"
 	"log/slog"
+	"path/filepath"
 	"reflect"
 	"slices"
 	"strconv"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/storage"
 	"fyne.io/fyne/v2/widget"
+
+	"github.com/MatusOllah/gecfg-editor/internal/config"
 )
 
 func reloadListItems() {
@@ -199,4 +203,117 @@ func newFile(a fyne.App, w fyne.Window) {
 	reloadListItems()
 	openFileName = "Untitled"
 	updateWindowTitle(a, w)
+}
+
+func openFile(a fyne.App, w fyne.Window) {
+	dlg := dialog.NewFileOpen(func(uc fyne.URIReadCloser, err error) {
+		if err != nil {
+			slog.Error(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+
+		if uc == nil {
+			return
+		}
+
+		path := uc.URI().Path()
+
+		slog.Info("opening file", "path", path)
+
+		cfg, err := config.Open(path)
+		if err != nil {
+			slog.Error(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+		defer cfg.Close()
+
+		openFileName = filepath.Base(path)
+		openFilePath = path
+		theMap = cfg.Data()
+		reloadListItems()
+		updateWindowTitle(a, w)
+	}, w)
+	dlg.SetFilter(storage.NewExtensionFileFilter([]string{".gecfg"}))
+	dlg.Resize(windowSizeToDialog(w.Canvas().Size()))
+	dlg.Show()
+}
+
+func saveFile(a fyne.App, w fyne.Window) {
+	if openFilePath == "" {
+		saveFileAs(a, w)
+		return
+	}
+
+	path := openFilePath
+
+	slog.Info("saving file", "path", path)
+
+	cfg, err := config.New(path)
+	if err != nil {
+		slog.Error(err.Error())
+		dialog.NewError(err, w).Show()
+		return
+	}
+
+	cfg.SetData(theMap)
+	openFileName = filepath.Base(path)
+	openFilePath = path
+	updateWindowTitle(a, w)
+
+	if err := cfg.Flush(); err != nil {
+		slog.Error(err.Error())
+		dialog.NewError(err, w).Show()
+		return
+	}
+	if err := cfg.Close(); err != nil {
+		slog.Error(err.Error())
+		dialog.NewError(err, w).Show()
+		return
+	}
+}
+
+func saveFileAs(a fyne.App, w fyne.Window) {
+	dlg := dialog.NewFileSave(func(uc fyne.URIWriteCloser, err error) {
+		if err != nil {
+			slog.Error(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+
+		if uc == nil {
+			return
+		}
+
+		path := uc.URI().Path()
+
+		slog.Info("saving file", "path", path)
+
+		cfg, err := config.Create(path)
+		if err != nil {
+			slog.Error(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+
+		cfg.SetData(theMap)
+		openFileName = filepath.Base(path)
+		openFilePath = path
+		updateWindowTitle(a, w)
+
+		if err := cfg.Flush(); err != nil {
+			slog.Error(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+		if err := cfg.Close(); err != nil {
+			slog.Error(err.Error())
+			dialog.NewError(err, w).Show()
+			return
+		}
+	}, w)
+	dlg.SetFilter(storage.NewExtensionFileFilter([]string{".gecfg"}))
+	dlg.Resize(windowSizeToDialog(w.Canvas().Size()))
+	dlg.Show()
 }
