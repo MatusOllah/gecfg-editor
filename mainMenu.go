@@ -105,7 +105,7 @@ func makeMainMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 
 	edit_edit := fyne.NewMenuItem("Edit", func() {
 		slog.Info("selected menu item Edit>Edit")
-		//TODO: edit
+		editSelected(w)
 	})
 	edit_edit.Icon = theme.DocumentCreateIcon()
 

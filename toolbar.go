@@ -34,7 +34,7 @@ func makeToolbar(a fyne.App, w fyne.Window) fyne.CanvasObject {
 		}),
 		widget.NewToolbarAction(theme.DocumentCreateIcon(), func() {
 			slog.Info("selected toolbar item Edit")
-			//TODO: edit
+			editSelected(w)
 		}),
 	), widget.NewSeparator())
 }

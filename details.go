@@ -11,22 +11,14 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
+var (
+	typeLbl  = widget.NewLabel("")
+	keyLbl   = widget.NewLabel("")
+	valueLbl = widget.NewLabel("")
+)
+
 func makeDetails(a fyne.App, w fyne.Window) fyne.CanvasObject {
-	typeLbl := widget.NewLabel("")
-	keyLbl := widget.NewLabel("")
-	valueLbl := widget.NewLabel("")
-
-	curItemBinding.AddListener(binding.NewDataListener(func() {
-		var item ListItem = ListItem{nil, ""}
-		_item, _ := curItemBinding.Get()
-		if _item != nil {
-			item = _item.(ListItem)
-		}
-
-		typeLbl.SetText(fmt.Sprint(item.Type))
-		keyLbl.SetText(item.Key)
-		valueLbl.SetText(fmt.Sprint(theMap[item.Key]))
-	}))
+	curItemBinding.AddListener(binding.NewDataListener(updateDetails))
 
 	deleteBtn := widget.NewButtonWithIcon("Delete", theme.ContentRemoveIcon(), func() {
 		slog.Info("clicked Delete button")
@@ -42,8 +34,21 @@ func makeDetails(a fyne.App, w fyne.Window) fyne.CanvasObject {
 		container.NewHBox(
 			widget.NewButtonWithIcon("Edit", theme.DocumentCreateIcon(), func() {
 				slog.Info("clicked Edit button")
+				editSelected(w)
 			}),
 			deleteBtn,
 		),
 	))
+}
+
+func updateDetails() {
+	var item ListItem = ListItem{nil, ""}
+	_item, _ := curItemBinding.Get()
+	if _item != nil {
+		item = _item.(ListItem)
+	}
+
+	typeLbl.SetText(fmt.Sprint(item.Type))
+	keyLbl.SetText(item.Key)
+	valueLbl.SetText(fmt.Sprint(theMap[item.Key]))
 }
