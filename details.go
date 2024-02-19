@@ -42,6 +42,8 @@ func makeDetails(a fyne.App, w fyne.Window) fyne.CanvasObject {
 }
 
 func updateDetails() {
+	slog.Info("updating details tab")
+
 	var item ListItem = ListItem{nil, ""}
 	_item, _ := curItemBinding.Get()
 	if _item != nil {

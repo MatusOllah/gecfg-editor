@@ -185,6 +185,7 @@ func deleteSelected() {
 	}
 	item := NewListItemFromDataItem(curItemBinding)
 	delete(theMap, item.Key)
+	curItemBinding.Set(ListItem{})
 	l.UnselectAll()
 	reloadListItems()
 	updateDetails()
