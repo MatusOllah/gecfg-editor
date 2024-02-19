@@ -74,7 +74,7 @@ func editSelected(w fyne.Window) {
 				return
 			}
 
-			v, err := strconv.ParseInt(entry.Text, 0, 8)
+			v, err := strconv.ParseInt(entry.Text, 0, 16)
 			if err != nil {
 				slog.Error(err.Error())
 				dialog.NewError(err, w).Show()
@@ -96,7 +96,7 @@ func editSelected(w fyne.Window) {
 				return
 			}
 
-			v, err := strconv.ParseInt(entry.Text, 0, 8)
+			v, err := strconv.ParseInt(entry.Text, 0, 32)
 			if err != nil {
 				slog.Error(err.Error())
 				dialog.NewError(err, w).Show()
@@ -118,7 +118,7 @@ func editSelected(w fyne.Window) {
 				return
 			}
 
-			v, err := strconv.ParseInt(entry.Text, 0, 8)
+			v, err := strconv.ParseInt(entry.Text, 0, 64)
 			if err != nil {
 				slog.Error(err.Error())
 				dialog.NewError(err, w).Show()
