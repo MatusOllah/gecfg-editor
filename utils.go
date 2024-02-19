@@ -187,6 +187,7 @@ func deleteSelected() {
 	delete(theMap, item.Key)
 	l.UnselectAll()
 	reloadListItems()
+	updateDetails()
 }
 
 // windowSizeToDialog scales the window size to a suitable dialog size.
