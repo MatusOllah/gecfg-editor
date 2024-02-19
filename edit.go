@@ -86,5 +86,27 @@ func editSelected(w fyne.Window) {
 			updateDetails()
 			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
 		}, w).Show()
+	case reflect.Int32:
+		entry := widget.NewEntry()
+		entry.TextStyle = fyne.TextStyle{Monospace: true}
+		entry.SetText(fmt.Sprint(theMap[item.Key]))
+
+		dialog.NewForm("Edit int32", "OK", "Cancel", []*widget.FormItem{widget.NewFormItem("Value", entry)}, func(b bool) {
+			if !b {
+				return
+			}
+
+			v, err := strconv.ParseInt(entry.Text, 0, 8)
+			if err != nil {
+				slog.Error(err.Error())
+				dialog.NewError(err, w).Show()
+				return
+			}
+
+			theMap[item.Key] = int32(v)
+			reloadListItems()
+			updateDetails()
+			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
+		}, w).Show()
 	}
 }
