@@ -37,6 +37,23 @@ func editSelected(w fyne.Window) {
 			updateDetails()
 			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
 		}, w).Show()
+	case reflect.Bool:
+		var v bool
+		check := widget.NewCheck("", func(b bool) {
+			v = b
+		})
+		check.SetChecked(theMap[item.Key].(bool))
+
+		dialog.NewForm("Edit bool", "OK", "Cancel", []*widget.FormItem{widget.NewFormItem("Value", check)}, func(b bool) {
+			if !b {
+				return
+			}
+
+			theMap[item.Key] = v
+			reloadListItems()
+			updateDetails()
+			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
+		}, w).Show()
 	case reflect.Int:
 		entry := widget.NewEntry()
 		entry.TextStyle = fyne.TextStyle{Monospace: true}
