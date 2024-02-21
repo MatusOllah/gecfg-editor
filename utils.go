@@ -175,6 +175,7 @@ func newValue(a fyne.App, w fyne.Window) {
 			slog.Error("invalid type", "type", typeEntry.Text)
 			dialog.NewError(errors.New("invalid type: "+typeEntry.Text), w).Show()
 		}
+		slog.Info("new value", "key", keyEntry.Text, "type", typeEntry.Text, "value", valueEntry.Text)
 		reloadListItems()
 	}, w).Show()
 }
