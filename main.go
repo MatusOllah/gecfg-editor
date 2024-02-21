@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"time"
 
 	"fyne.io/fyne/v2"
@@ -16,11 +17,31 @@ import (
 	"github.com/MatusOllah/slogcolor"
 )
 
+func getLogLevel(s string) slog.Leveler {
+	switch strings.ToLower(s) {
+	case "debug":
+		return slog.LevelDebug
+	case "info":
+		return slog.LevelInfo
+	case "warn":
+		return slog.LevelWarn
+	case "error":
+		return slog.LevelError
+	default:
+		return slog.LevelInfo
+	}
+}
+
 func main() {
 	path := flag.String("open-file", "", "Open a file")
+	logLevel := flag.String("log-level", "info", "Log level (\"debug\", \"info\", \"warn\", \"error\")")
 	flag.Parse()
 
-	slog.SetDefault(slog.New(slogcolor.NewHandler(os.Stderr, slogcolor.DefaultOptions)))
+	slog.SetDefault(slog.New(slogcolor.NewHandler(os.Stderr, &slogcolor.Options{
+		Level:       getLogLevel(*logLevel),
+		TimeFormat:  time.DateTime,
+		SrcFileMode: slogcolor.ShortFile,
+	})))
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile)
 
 	slog.Info("Initializing")
