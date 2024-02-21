@@ -32,9 +32,17 @@ func getLogLevel(s string) slog.Leveler {
 	}
 }
 
+func showVersion() {
+	a := app.New()
+
+	fmt.Printf("%s version v%s\n", a.Metadata().Name, a.Metadata().Version)
+	fmt.Printf("Go version %s\n", runtime.Version())
+}
+
 func main() {
 	path := flag.String("open-file", "", "Open a file")
 	logLevel := flag.String("log-level", "info", "Log level (\"debug\", \"info\", \"warn\", \"error\")")
+	version := flag.Bool("version", false, "Show version and exit")
 	flag.Parse()
 
 	slog.SetDefault(slog.New(slogcolor.NewHandler(os.Stderr, &slogcolor.Options{
@@ -43,6 +51,11 @@ func main() {
 		SrcFileMode: slogcolor.ShortFile,
 	})))
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile)
+
+	if *version {
+		showVersion()
+		os.Exit(0)
+	}
 
 	slog.Info("Initializing")
 	beforeInit := time.Now()
