@@ -51,7 +51,10 @@ func printOneDocument(lines []string) error {
 	if err := cmd.Start(); err != nil {
 		return err
 	}
-	stdin := cmd.StdinPipe()
+	stdin, err := cmd.StdinPipe()
+	if err != nil {
+		return err
+	}
 
 	for _, line := range lines {
 		fmt.Fprintf(stdin, line+"\r\n")
