@@ -1,19 +1,25 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"log/slog"
 	"os"
+	"path/filepath"
 	"runtime"
 	"time"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"github.com/MatusOllah/gecfg-editor/internal/config"
 	"github.com/MatusOllah/slogcolor"
 )
 
 func main() {
+	path := flag.String("open-file", "", "Open a file")
+	flag.Parse()
+
 	slog.SetDefault(slog.New(slogcolor.NewHandler(os.Stderr, slogcolor.DefaultOptions)))
 	log.SetFlags(log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile)
 
@@ -48,6 +54,24 @@ func main() {
 	w.SetContent(makeUI(a, w))
 
 	slog.Info(fmt.Sprintf("Initialization took %s", time.Since(beforeInit)))
+
+	// open file
+	if *path != "" {
+		slog.Info("opening file", "path", *path)
+
+		cfg, err := config.Open(*path)
+		if err != nil {
+			slog.Error(err.Error())
+			os.Exit(1)
+		}
+		defer cfg.Close()
+
+		openFileName = filepath.Base(*path)
+		openFilePath = *path
+		theMap = cfg.Data()
+		reloadListItems()
+		updateWindowTitle(a, w)
+	}
 
 	w.ShowAndRun()
 
