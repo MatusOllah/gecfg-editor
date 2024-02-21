@@ -1,5 +1,9 @@
 # gecfg-editor
 
+<p align="center">
+    <img width="640" height="400" src="https://github.com/MatusOllah/gecfg-editor/blob/main/screenshots/editor.png">
+</p>
+
 **gecfg-editor** is a editor for the [GophEngine FNF](https://github.com/MatusOllah/gophengine) configuration files. It's like regedit, but simpler.
 
 ## Features
