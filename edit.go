@@ -20,6 +20,23 @@ func editSelected(w fyne.Window) {
 	slog.Info("editing value", "item", item)
 
 	switch item.Type.Kind() {
+	case reflect.String:
+		entry := widget.NewEntry()
+		entry.TextStyle = fyne.TextStyle{Monospace: true}
+		entry.SetText(fmt.Sprint(theMap[item.Key]))
+
+		dialog.NewForm("Edit string", "OK", "Cancel", []*widget.FormItem{widget.NewFormItem("Value", entry)}, func(b bool) {
+			if !b {
+				return
+			}
+
+			v := entry.Text
+
+			theMap[item.Key] = v
+			reloadListItems()
+			updateDetails()
+			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
+		}, w).Show()
 	case reflect.Int:
 		entry := widget.NewEntry()
 		entry.TextStyle = fyne.TextStyle{Monospace: true}
