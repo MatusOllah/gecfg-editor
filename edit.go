@@ -164,5 +164,159 @@ func editSelected(w fyne.Window) {
 			updateDetails()
 			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
 		}, w).Show()
+	case reflect.Uint:
+		entry := widget.NewEntry()
+		entry.TextStyle = fyne.TextStyle{Monospace: true}
+		entry.SetText(fmt.Sprint(theMap[item.Key]))
+
+		dialog.NewForm("Edit uint", "OK", "Cancel", []*widget.FormItem{widget.NewFormItem("Value", entry)}, func(b bool) {
+			if !b {
+				return
+			}
+
+			v, err := strconv.ParseUint(entry.Text, 0, 64)
+			if err != nil {
+				slog.Error(err.Error())
+				dialog.NewError(err, w).Show()
+				return
+			}
+
+			theMap[item.Key] = uint(v)
+			reloadListItems()
+			updateDetails()
+			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
+		}, w).Show()
+	case reflect.Uint8:
+		entry := widget.NewEntry()
+		entry.TextStyle = fyne.TextStyle{Monospace: true}
+		entry.SetText(fmt.Sprint(theMap[item.Key]))
+
+		dialog.NewForm("Edit uint8", "OK", "Cancel", []*widget.FormItem{widget.NewFormItem("Value", entry)}, func(b bool) {
+			if !b {
+				return
+			}
+
+			v, err := strconv.ParseUint(entry.Text, 0, 8)
+			if err != nil {
+				slog.Error(err.Error())
+				dialog.NewError(err, w).Show()
+				return
+			}
+
+			theMap[item.Key] = uint8(v)
+			reloadListItems()
+			updateDetails()
+			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
+		}, w).Show()
+	case reflect.Uint16:
+		entry := widget.NewEntry()
+		entry.TextStyle = fyne.TextStyle{Monospace: true}
+		entry.SetText(fmt.Sprint(theMap[item.Key]))
+
+		dialog.NewForm("Edit uint16", "OK", "Cancel", []*widget.FormItem{widget.NewFormItem("Value", entry)}, func(b bool) {
+			if !b {
+				return
+			}
+
+			v, err := strconv.ParseUint(entry.Text, 0, 16)
+			if err != nil {
+				slog.Error(err.Error())
+				dialog.NewError(err, w).Show()
+				return
+			}
+
+			theMap[item.Key] = uint16(v)
+			reloadListItems()
+			updateDetails()
+			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
+		}, w).Show()
+	case reflect.Uint32:
+		entry := widget.NewEntry()
+		entry.TextStyle = fyne.TextStyle{Monospace: true}
+		entry.SetText(fmt.Sprint(theMap[item.Key]))
+
+		dialog.NewForm("Edit uint32", "OK", "Cancel", []*widget.FormItem{widget.NewFormItem("Value", entry)}, func(b bool) {
+			if !b {
+				return
+			}
+
+			v, err := strconv.ParseUint(entry.Text, 0, 32)
+			if err != nil {
+				slog.Error(err.Error())
+				dialog.NewError(err, w).Show()
+				return
+			}
+
+			theMap[item.Key] = uint32(v)
+			reloadListItems()
+			updateDetails()
+			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
+		}, w).Show()
+	case reflect.Uint64:
+		entry := widget.NewEntry()
+		entry.TextStyle = fyne.TextStyle{Monospace: true}
+		entry.SetText(fmt.Sprint(theMap[item.Key]))
+
+		dialog.NewForm("Edit uint64", "OK", "Cancel", []*widget.FormItem{widget.NewFormItem("Value", entry)}, func(b bool) {
+			if !b {
+				return
+			}
+
+			v, err := strconv.ParseUint(entry.Text, 0, 64)
+			if err != nil {
+				slog.Error(err.Error())
+				dialog.NewError(err, w).Show()
+				return
+			}
+
+			theMap[item.Key] = uint64(v)
+			reloadListItems()
+			updateDetails()
+			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
+		}, w).Show()
+	case reflect.Float32:
+		entry := widget.NewEntry()
+		entry.TextStyle = fyne.TextStyle{Monospace: true}
+		entry.SetText(fmt.Sprint(theMap[item.Key]))
+
+		dialog.NewForm("Edit float32", "OK", "Cancel", []*widget.FormItem{widget.NewFormItem("Value", entry)}, func(b bool) {
+			if !b {
+				return
+			}
+
+			v, err := strconv.ParseFloat(entry.Text, 32)
+			if err != nil {
+				slog.Error(err.Error())
+				dialog.NewError(err, w).Show()
+				return
+			}
+
+			theMap[item.Key] = float32(v)
+			reloadListItems()
+			updateDetails()
+			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
+		}, w).Show()
+	case reflect.Float64:
+		entry := widget.NewEntry()
+		entry.TextStyle = fyne.TextStyle{Monospace: true}
+		entry.SetText(fmt.Sprint(theMap[item.Key]))
+
+		dialog.NewForm("Edit float64", "OK", "Cancel", []*widget.FormItem{widget.NewFormItem("Value", entry)}, func(b bool) {
+			if !b {
+				return
+			}
+
+			v, err := strconv.ParseFloat(entry.Text, 64)
+			if err != nil {
+				slog.Error(err.Error())
+				dialog.NewError(err, w).Show()
+				return
+			}
+
+			theMap[item.Key] = float64(v)
+			reloadListItems()
+			updateDetails()
+			slog.Info("edited value", "item", item, "key", item.Key, "value", v)
+		}, w).Show()
 	}
 }
